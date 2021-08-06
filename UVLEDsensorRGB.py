@@ -7,10 +7,12 @@ from machine import I2C, Pin, PWM
 # Define I2C
 i2c = I2C(scl=Pin(22), sda=Pin(23), freq=100000)
 
-pin15 = Pin(15, Pin.OUT)
 pwm=PWM(Pin(15))
-pwm.freq(60)
-# Define olef
+
+x = 0
+rate = 30
+
+# Define oled
 oled = ssd1306.SSD1306_I2C(128, 64, i2c)
 oled.fill(0)
 
@@ -19,8 +21,6 @@ sensor = tcs34725.TCS34725(i2c)
 sensor.integration_time(10) #value between 2.4 and 614.4.
 sensor.gain(16) #must be a value of 1, 4, 16, 60
 
-# Define UV/Light/IR sensor
-uv_sensor = si1145.SI1145(i2c=i2c)
 
 def color_rgb_bytes(color_raw):
     """Read the RGB color detected by the sensor.  Returns a 3-tuple of
@@ -43,49 +43,26 @@ def color_rgb_bytes(color_raw):
     return (red, green, blue)
 
 while True:
-    for i in range(1024):
-        pwm.duty(i)
-        time.sleep(0.01)
+    for i in range(20):
+
+        pwm.duty(x)
+        time.sleep(0.5)
+        x += rate
+
         # Read color sensor
         r,g,b = color_rgb_bytes(sensor.read(True))
-
-        # Read UV sensor
-        uv = uv_sensor.read_uv
-        ir = uv_sensor.read_ir
-        vis = uv_sensor.read_visible
 
         # Show results on OLED
         oled.fill(0)
         oled.text('R: {}'.format(r), 0, 8)
         oled.text('G: {}'.format(g), 0, 16)
         oled.text('B: {}'.format(b), 0, 24)
-        oled.text('UV: {}'.format(uv), 0, 32)
-        oled.text('IR: {}'.format(ir), 0, 40)
-        oled.text('VIS: {}'.format(vis), 0, 48)
         oled.show()
 
 
         # Print results
-        answer = '>r:{} g:{} b:{} uv:{} ir:{} vis:{}<'.format(r, g, b, uv, ir, vis)
+        answer = '>r:{} g:{} b:{}<'.format(r, g, b)
         print(answer, end='\n')
 
         # Wait 1 second before repeating
         time.sleep(0.1)
-
-
-# Define I2C
-
-import machine
-import time
-from machine import I2C, Pin, PWM
-
-x = 0
-rate = 30 
-
-pwm=PWM(Pin(15))
-
-while True:  
-    for i in range(20):
-        pwm.duty(x)
-        time.sleep(0.5)
-        x += rate
