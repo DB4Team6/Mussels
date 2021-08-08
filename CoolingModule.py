@@ -11,3 +11,16 @@ while True:
   # RELAY OFF
   relay.value(1)
   sleep(10)
+
+
+from machine import Pin
+import time
+
+pin27 = Pin(27, Pin.OUT)
+
+
+while True:
+  pin27.value(1)
+  time.sleep(0.001)
+  pin27.value(0)
+  time.sleep(0.001)

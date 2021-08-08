@@ -1,91 +1,69 @@
-import ssd1306
-import tcs34725
-import si1145
+
+from machine import Pin
 import time
-from machine import I2C, Pin, PWM
+import screen_controller
+import constants
+import stepper_motor
 
-# Define I2C
-i2c = I2C(scl=Pin(22), sda=Pin(23), freq=100000)
+screen_controller.clear_screen()
 
-pin15 = Pin(15, Pin.OUT)
-pwm=PWM(Pin(15))
-pwm.freq(60)
-# Define olef
-oled = ssd1306.SSD1306_I2C(128, 64, i2c)
-oled.fill(0)
+screen_controller.print_new_line("Low Speed")
 
-# Define rgb sensor
-sensor = tcs34725.TCS34725(i2c)
-sensor.integration_time(10) #value between 2.4 and 614.4.
-sensor.gain(16) #must be a value of 1, 4, 16, 60
+stepper_motor.start_motor()
+stepper_motor.motor_set_power(constants.STEPPER_MOTOR_LOW_POWER)
 
-# Define UV/Light/IR sensor
-uv_sensor = si1145.SI1145(i2c=i2c)
+time.sleep(5)
 
-def color_rgb_bytes(color_raw):
-    """Read the RGB color detected by the sensor.  Returns a 3-tuple of
-    red, green, blue component values as bytes (0-255).
-    """
-    r, g, b, clear = color_raw
-    # Avoid divide by zero errors ... if clear = 0 return black
-    if clear == 0:
-        return (0, 0, 0)
-    red   = int(pow((int((r/clear) * 256) / 255), 2.5) * 255)
-    green = int(pow((int((g/clear) * 256) / 255), 2.5) * 255)
-    blue  = int(pow((int((b/clear) * 256) / 255), 2.5) * 255)
-    # Handle possible 8-bit overflow
-    if red > 255:
-        red = 255
-    if green > 255:
-        green = 255
-    if blue > 255:
-        blue = 255
-    return (red, green, blue)
+screen_controller.print_new_line("High Speed")
 
-while True:
-    for i in range(1024):
-        pwm.duty(i)
-        time.sleep(0.01)
-        # Read color sensor
-        r,g,b = color_rgb_bytes(sensor.read(True))
+stepper_motor.motor_set_power(constants.STEPPER_MOTOR_HIGH_POWER)
 
-        # Read UV sensor
-        uv = uv_sensor.read_uv
-        ir = uv_sensor.read_ir
-        vis = uv_sensor.read_visible
+time.sleep(5)
 
-        # Show results on OLED
-        oled.fill(0)
-        oled.text('R: {}'.format(r), 0, 8)
-        oled.text('G: {}'.format(g), 0, 16)
-        oled.text('B: {}'.format(b), 0, 24)
-        oled.text('UV: {}'.format(uv), 0, 32)
-        oled.text('IR: {}'.format(ir), 0, 40)
-        oled.text('VIS: {}'.format(vis), 0, 48)
-        oled.show()
+screen_controller.print_new_line("Off")
+
+stepper_motor.stop_motor()
+
+time.sleep(5)
+
+# screen_controller.print_new_line("Hello!!")
+# time.sleep(0.5)
+# screen_controller.print_new_line("Happy to see you :)")
+# time.sleep(0.5)
+# screen_controller.print_new_line("Starting soon....")
+# time.sleep(0.5)
+# screen_controller.print_new_line("Ready??")
+# time.sleep(0.5)
+# screen_controller.print_new_line("GOO!!!!")
+# time.sleep(0.5)
+
+# stepper_motor.start_motor()
+# stepper_motor.motor_set_power(constants.STEPPER_MOTOR_LOW_POWER)
+
+# time.sleep(3)
+
+# screen_controller.print_new_line("See? :)")
+# time.sleep(0.5)
+
+# screen_controller.print_new_line("We can also go faster :-)")
+
+# stepper_motor.motor_set_power(constants.STEPPER_MOTOR_HIGH_POWER)
+
+# time.sleep(4)
 
 
-        # Print results
-        answer = '>r:{} g:{} b:{} uv:{} ir:{} vis:{}<'.format(r, g, b, uv, ir, vis)
-        print(answer, end='\n')
+# screen_controller.print_new_line("I will kill myself in...")
 
-        # Wait 1 second before repeating
-        time.sleep(0.1)
+# time.sleep(0.7)
+
+# for i in [5, 4, 3, 2, 1]:
+#     screen_controller.print_new_line("  " + str(i) + " seconds...")
+#     time.sleep(1)
 
 
-# Define I2C
+# screen_controller.print_new_line("BOOOOM!!!")
+# stepper_motor.stop_motor()
 
-import machine
-import time
-from machine import I2C, Pin, PWM
+# time.sleep(1)
 
-x = 0
-rate = 30 
-
-pwm=PWM(Pin(15))
-
-while True:  
-    for i in range(20):
-        pwm.duty(x)
-        time.sleep(0.5)
-        x += rate
+# screen_controller.clear_screen()
