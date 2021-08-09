@@ -63,8 +63,8 @@ def motor_set_dir(d: int):
     1: counter-clockwise
     """
     global _direction
-    if d != 0 or d!= 1:
-        _direction = 0
+    if d != 0 and d != 1:
+        _direction = 1
         print("Wrong input for direction!! Running clockwise now...")
         return
     _direction = d
