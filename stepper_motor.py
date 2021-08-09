@@ -68,3 +68,4 @@ def motor_set_dir(d: int):
         print("Wrong input for direction!! Running clockwise now...")
         return
     _direction = d
+    _pin_dir(_direction)
