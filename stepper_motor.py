@@ -5,8 +5,11 @@ from machine import Pin
 
 _thread_is_running = False
 _has_to_stop = False
-_power = constants.STEPPER_MOTOR_LOW_POWER
+_power = constants.STEPPER_MOTOR_HIGH_POWER
 _pin = Pin(constants.STEPPER_MOTOR_STEP_PIN, Pin.OUT)
+_pin_dir = Pin(constants.STEPPER_MOTOR_STEP_PIN_DIR, Pin.OUT)
+_direction = constants.STEPPER_MOTOR_CLOCK_DIR
+_pin_dir(_direction)
 _pin.value(0)
 
 def _stepper_motor_runner():
@@ -52,3 +55,16 @@ def motor_set_power(p: float):
     """
     global _power
     _power = p
+
+def motor_set_dir(d: int):
+    """
+    This function sets the direction of the motor to i.
+    0: clockwise
+    1: counter-clockwise
+    """
+    global _direction
+    if d != 0 or d!= 1:
+        _direction = 0
+        print("Wrong input for direction!! Running clockwise now...")
+        return
+    _direction = d
