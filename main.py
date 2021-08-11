@@ -1,69 +1,38 @@
-
 from machine import Pin
 import time
+
+# Controllers
 import screen_controller
+import cooling_controller
+import led_controller
+import motor_controller
+
+# Constants
 import constants
-import stepper_motor
 
-screen_controller.clear_screen()
+# Managers
+import food_manager
+import temperature_manager
 
-screen_controller.print_new_line("Low Speed")
+def main():
+    """
+        Entry point of the app.
+    """
+    screen_controller.clear_screen_print_line("Starting...")
+    
+    # Starting additional threads.
+    motor_controller.start_thread()
+    screen_controller.print_new_line("Start job...")
 
-stepper_motor.start_motor()
-stepper_motor.motor_set_power(constants.STEPPER_MOTOR_LOW_POWER)
+    while True:
+        food_manager.step()
+        temperature_manager.step()
 
-time.sleep(5)
-
-screen_controller.print_new_line("High Speed")
-
-stepper_motor.motor_set_power(constants.STEPPER_MOTOR_HIGH_POWER)
-
-time.sleep(5)
-
-screen_controller.print_new_line("Off")
-
-stepper_motor.stop_motor()
-
-time.sleep(5)
-
-# screen_controller.print_new_line("Hello!!")
-# time.sleep(0.5)
-# screen_controller.print_new_line("Happy to see you :)")
-# time.sleep(0.5)
-# screen_controller.print_new_line("Starting soon....")
-# time.sleep(0.5)
-# screen_controller.print_new_line("Ready??")
-# time.sleep(0.5)
-# screen_controller.print_new_line("GOO!!!!")
-# time.sleep(0.5)
-
-# stepper_motor.start_motor()
-# stepper_motor.motor_set_power(constants.STEPPER_MOTOR_LOW_POWER)
-
-# time.sleep(3)
-
-# screen_controller.print_new_line("See? :)")
-# time.sleep(0.5)
-
-# screen_controller.print_new_line("We can also go faster :-)")
-
-# stepper_motor.motor_set_power(constants.STEPPER_MOTOR_HIGH_POWER)
-
-# time.sleep(4)
+    # Ending threads - TBD if usefull.
+    screen_controller.print_new_line("Job ended.")
+    screen_controller.print_new_line("Stopping...")
+    motor_controller.stop_thread()
 
 
-# screen_controller.print_new_line("I will kill myself in...")
-
-# time.sleep(0.7)
-
-# for i in [5, 4, 3, 2, 1]:
-#     screen_controller.print_new_line("  " + str(i) + " seconds...")
-#     time.sleep(1)
-
-
-# screen_controller.print_new_line("BOOOOM!!!")
-# stepper_motor.stop_motor()
-
-# time.sleep(1)
-
-# screen_controller.clear_screen()
+if __name__ == "__main__":
+    main()

@@ -6,8 +6,8 @@ from machine import Pin
 _thread_is_running = False
 _has_to_stop = False
 _power = constants.STEPPER_MOTOR_HIGH_POWER
-_pin = Pin(constants.STEPPER_MOTOR_STEP_PIN, Pin.OUT)
-_pin_dir = Pin(constants.STEPPER_MOTOR_STEP_PIN_DIR, Pin.OUT)
+_pin = Pin(constants.STEPPER_MOTOR_2_STEP_PIN, Pin.OUT)
+_pin_dir = Pin(constants.STEPPER_MOTOR_2_STEP_PIN_DIR, Pin.OUT)
 _direction = constants.STEPPER_MOTOR_CLOCK_DIR
 _pin_dir(_direction)
 _pin.value(0)
@@ -63,7 +63,7 @@ def motor_set_dir(d: int):
     1: counter-clockwise
     """
     global _direction
-    if d != 0 and d != 1:
+    if d != 0 or d != 1:
         _direction = 1
         print("Wrong input for direction!! Running clockwise now...")
         return
