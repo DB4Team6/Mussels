@@ -7,14 +7,14 @@ import gc
 from machine import Pin
 from machine import ADC
 from machine import DAC
-
+import constants
 import machine
 import utime
 
 ADC_DELAY = 10
 DAC_DELAY = 5
 
-ADC_PIN_NO = 32
+ADC_PIN_NO = constants.TEMP_PIN
 DAC_PIN_NO = 25
 
 NUM_SAMPLES = 50
