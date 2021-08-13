@@ -4,7 +4,7 @@
 
 from machine import Pin
 from time import sleep
-import constants
+import utils_constants as constants
 
 _led = Pin(constants.LED_PIN, Pin.OUT)
 _led.value(0)

@@ -1,12 +1,12 @@
-import time
 import machine
+import time
 from machine import Pin
-pin25=machine.Pin(25,Pin.OUT)
+pin25=machine.Pin(15,Pin.OUT)
 pin25.off()
 import ssd1306
 import tcs34725
 import si1145
-from machine import I2C, PWM
+from machine import I2C, Pin, PWM
 
 def color_rgb_bytes(color_raw):
     """Read the RGB color detected by the sensor.  Returns a 3-tuple of
@@ -27,6 +27,8 @@ def color_rgb_bytes(color_raw):
     if blue > 255:
         blue = 255
     return (red, green, blue)
+
+
 
 # Define I2C
 i2c = I2C(scl=Pin(22), sda=Pin(23), freq=100000)

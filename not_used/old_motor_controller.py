@@ -6,7 +6,7 @@ import _thread
 import time
 import constants
 from machine import Pin
-import screen_controller
+# import screen_controller
 
 MOTOR_1 = 0
 MOTOR_2 = 1
