@@ -19,8 +19,8 @@ STEPPER_MOTOR_2_STEP_PIN_DIR = 33
 COOLER_PIN = 14
 
 ## RGB Sensor 
-SENSOR_INTEGRATION_TIME = 10
-SENSOR_GAIN = 16
+SENSOR_INTEGRATION_TIME = 100   #value between 2.4 and 614.4.
+SENSOR_GAIN = 16    #must be a value of 1, 4, 16, 60
 
 ## RGB LED Pins
 R_PIN = 4

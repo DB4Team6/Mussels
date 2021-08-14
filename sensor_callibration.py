@@ -5,16 +5,16 @@ import tcs34725
 import si1145
 from machine import I2C, Pin, PWM
 import controller_screen
-import constants
+import utils_constants
 import controller_motor
 
 #defining the RGB LED pins. The given LED colour is on when the pin is off()
 
-r=Pin(constants.R_PIN,Pin.OUT,Pin.PULL_UP)
+r=Pin(utils_constants.R_PIN,Pin.OUT,Pin.PULL_UP)
 
-g=Pin(constants.G_PIN,Pin.OUT,Pin.PULL_UP)
+g=Pin(utils_constants.G_PIN,Pin.OUT,Pin.PULL_UP)
 
-b=Pin(constants.B_PIN,Pin.OUT,Pin.PULL_UP)
+b=Pin(utils_constants.B_PIN,Pin.OUT,Pin.PULL_UP)
 
 r.on()
 g.on()
@@ -55,8 +55,8 @@ oled.fill(0)
 
 # Define rgb sensor
 sensor = tcs34725.TCS34725(i2c)
-sensor.integration_time(constants.SENSOR_INTEGRATION_TIME) #value between 2.4 and 614.4.
-sensor.gain(16) #must be a value of 1, 4, 16, 60
+sensor.integration_time(utils_constants.SENSOR_INTEGRATION_TIME) #value between 2.4 and 614.4.
+sensor.gain(utils_constants.SENSOR_GAIN) #must be a value of 1, 4, 16, 60
 
 
 
@@ -83,13 +83,11 @@ def measure():
     
 
 def callibrate():
-    import motor_controller as m
-    m.start_thread()
-    m.start(MOTOR_1)
+    import controller_motor as m
+    m.start(m.MOTOR_1)
     time.sleep(10)
-    m.stop(MOTOR_1)
+    m.stop(m.MOTOR_1)
     test()
-    
 
 def test():
     result=[]
