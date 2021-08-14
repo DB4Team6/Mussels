@@ -16,8 +16,8 @@ direction = [0, 0]
 
 _freq = constants.STEPPER_MOTOR_PWM_FREQ
 _pin = [
-    PWM(Pin(constants.STEPPER_MOTOR_1_STEP_PIN, Pin.OUT)),
-    PWM(Pin(constants.STEPPER_MOTOR_2_STEP_PIN, Pin.OUT))
+    PWM(Pin(constants.STEPPER_MOTOR_1_STEP_PIN)),
+    PWM(Pin(constants.STEPPER_MOTOR_2_STEP_PIN))
 ]
 
 _direction_pin = [
@@ -28,8 +28,8 @@ _direction_pin = [
 # Set initial value of pins to avoid problems
 _direction_pin[0](0)
 _direction_pin[1](0)
-_pin[0].value(0)
-_pin[1].value(0)
+#_pin[0].value(0)
+#_pin[1].value(0)
 
 def _check(motor):
     if motor != 0 and motor != 1:
@@ -42,7 +42,7 @@ def start(motor):
     _check(motor)
     motor_is_running[motor] = True
     _pin[motor].freq(_freq)
-    _pin[motor].duty(512)
+    _pin[motor].duty(100)
 
 def stop(motor):
     """
