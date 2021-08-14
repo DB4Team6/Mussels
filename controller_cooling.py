@@ -4,7 +4,7 @@
 
 from machine import Pin
 from time import sleep
-import constants
+import utils_constants as constants
 
 _relay = Pin(constants.COOLER_PIN, Pin.OUT)
 _relay.value(0)

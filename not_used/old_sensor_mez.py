@@ -1,12 +1,12 @@
-import time
 import machine
+import time
 from machine import Pin
-pin25=machine.Pin(25,Pin.OUT)
+pin25=machine.Pin(15,Pin.OUT)
 pin25.off()
 import ssd1306
 import tcs34725
 import si1145
-from machine import I2C, PWM
+from machine import I2C, Pin, PWM
 
 color1=Pin(26,Pin.OUT,Pin.PULL_UP)
 blue=color1
@@ -38,6 +38,8 @@ def color_rgb_bytes_new(color_raw):
     if blue > 255:
         blue = 255
     return (red, green, blue, int(r), int(g), int(b), int(clear))
+
+
 
 
 

@@ -32,6 +32,8 @@ import sys
 import _thread
 
 def _wifi_server_runner():
+    print("Wifi thread started!")
+
     # WiFi connection information
     WIFI_SSID = 'Marias iPhone'
     WIFI_PASSWORD = 'hannabortin'

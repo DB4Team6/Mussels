@@ -7,7 +7,7 @@ import gc
 from machine import Pin
 from machine import ADC
 from machine import DAC
-import constants
+import utils_constants as constants
 import machine
 import utime
 
