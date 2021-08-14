@@ -8,7 +8,18 @@ import tcs34725
 import si1145
 from machine import I2C, PWM
 
-def color_rgb_bytes(color_raw):
+color1=Pin(26,Pin.OUT,Pin.PULL_UP)
+blue=color1
+color2=Pin(25,Pin.OUT,Pin.PULL_UP)
+blue.off()
+blue.on()
+green=color2
+color3=Pin(4,Pin.OUT,Pin.PULL_UP)
+color3.on()
+red=color3
+
+
+def color_rgb_bytes_new(color_raw):
     """Read the RGB color detected by the sensor.  Returns a 3-tuple of
     red, green, blue component values as bytes (0-255).
     """
@@ -26,7 +37,9 @@ def color_rgb_bytes(color_raw):
         green = 255
     if blue > 255:
         blue = 255
-    return (red, green, blue)
+    return (red, green, blue, int(r), int(g), int(b), int(clear))
+
+
 
 # Define I2C
 i2c = I2C(scl=Pin(22), sda=Pin(23), freq=100000)
