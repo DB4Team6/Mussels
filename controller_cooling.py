@@ -7,7 +7,7 @@ from time import sleep
 import utils_constants as constants
 
 _relay = Pin(constants.COOLER_PIN, Pin.OUT)
-_relay.value(0)
+_relay.value(1)
 is_started = False
 
 def start():

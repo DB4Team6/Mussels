@@ -3,8 +3,8 @@
 """
 
 from machine import Pin
-from time import sleep
-import utils_constants as constants
+import time
+import utils_constants
 
 r=Pin(utils_constants.R_PIN,Pin.OUT,Pin.PULL_UP)
 
@@ -30,45 +30,6 @@ def off():
   r.on()
   g.on()
   b.on()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 def rave():
     r.off()

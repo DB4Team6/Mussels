@@ -130,18 +130,4 @@ def test():
     result.append(test)
     return(result)
 
-
-def rave():
-    r.off()
-    g.off()
-    b.off()
-    while True:
-        for i in [r,g,b]:
-            i.on()
-            time.sleep(0.01)
-            for j in [r,g,b]:
-                j.on()
-                time.sleep(0.01)
-                j.off()
-            i.off()
             
