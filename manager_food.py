@@ -27,14 +27,14 @@ import sensor_callibration
 FOOD_QUANTITY = 80
 
 # Time between feeding sessions (in sec)
-TIME_BETWEEN_FEEDING_SESSIONS = 10
+TIME_BETWEEN_FEEDING_SESSIONS = 780 
 
 # Motor used for food
 FOOD_MOTOR = controller_motor.MOTOR_1
 FOOD_MOTOR_DIRECTION = 0 
 
-# Flow of water by the stepper motor tube when started
-STEPPER_MOTOR_FLOW = 42 # TODO
+# Flow of water by the stepper motor tube when started 
+STEPPER_MOTOR_FLOW = 1.408 # ml/s
 
 # Number of seconds we run the motor before
 # we measure the concentration

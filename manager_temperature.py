@@ -73,7 +73,7 @@ def _manager_temperature_runner():
     print("Started temperature manager thread!")
     controller_screen.print_new_line("Start temp!")
     is_cooling = False
-    controller_cooling.stop()
+    # controller_cooling.stop()
 
     while True:
         computed_temp = _get_measurement_and_update_temp()
@@ -86,7 +86,7 @@ def _manager_temperature_runner():
                 controller_screen.print_new_line("Start cooling!")
                 print("Started cooling!")
                 is_cooling = True
-                controller_cooling.start()
+                # controller_cooling.start()
         else:
             # Stop cooling
             controller_motor.stop(TEMP_MOTOR)
@@ -94,7 +94,7 @@ def _manager_temperature_runner():
                 controller_screen.print_new_line("Stop cooling!")
                 print("Stopped cooling!")
                 is_cooling = False
-                controller_cooling.stop()
+                # controller_cooling.stop()
 
         time.sleep(TIME_BETWEEN_TEMP_MEASUREMENTS)
 

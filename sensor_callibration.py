@@ -63,18 +63,11 @@ oled.fill(0)
 def measure():
     
 
-<<<<<<< HEAD
-    # for i in range(N_LIGHT_SAMPLES):
-    #     r,g,b = (r,g,b)+color_rgb_bytes_new(sensor.read(True))
-
-    (r_value,g_value,b_value)=color_rgb_bytes_new(sensor.read(True))
-=======
     
     for i in range(utils_constants.N_RGB_MEASUREMENTS):
         [r_value,g_value,b_value]=[r_value,g_value,b_value]+color_rgb_bytes_new(sensor.read(True))
 
     (r_value,g_value,b_value)=(r_value,g_value,b_value)/utils_constants.N_RGB_MEASUREMENTS
->>>>>>> 0ee518d6d1530c90ff1bddafa18ec7d4ab2834ef
 
     #(r,g,b)=(r,g,b)/N_LIGHT_SAMPLES
 
@@ -137,18 +130,4 @@ def test():
     result.append(test)
     return(result)
 
-
-def rave():
-    r.off()
-    g.off()
-    b.off()
-    while True:
-        for i in [r,g,b]:
-            i.on()
-            time.sleep(0.01)
-            for j in [r,g,b]:
-                j.on()
-                time.sleep(0.01)
-                j.off()
-            i.off()
             
