@@ -6,14 +6,80 @@ from machine import Pin
 from time import sleep
 import utils_constants as constants
 
-_led = Pin(constants.LED_PIN, Pin.OUT)
-_led.value(0)
+r=Pin(utils_constants.R_PIN,Pin.OUT,Pin.PULL_UP)
+
+g=Pin(utils_constants.G_PIN,Pin.OUT,Pin.PULL_UP)
+
+b=Pin(utils_constants.B_PIN,Pin.OUT,Pin.PULL_UP)
+
+r.on()
+g.on()
+b.on()
+
 is_started = False
 
-def start():
+def on():
   is_started = True
-  _led.value(1)
+  r.off()
+  g.off()
+  b.off()
+  
 
-def stop():
+def off():
   is_started = False
-  _led.value(0)
+  r.on()
+  g.on()
+  b.on()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def rave():
+    r.off()
+    g.off()
+    b.off()
+    while True:
+        for i in [r,g,b]:
+            i.on()
+            time.sleep(0.01)
+            for j in [r,g,b]:
+                j.on()
+                time.sleep(0.01)
+                j.off()
+            i.off()
