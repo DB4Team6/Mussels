@@ -63,12 +63,22 @@ oled.fill(0)
 def measure():
     
 
+<<<<<<< HEAD
+    # for i in range(N_LIGHT_SAMPLES):
+    #     r,g,b = (r,g,b)+color_rgb_bytes_new(sensor.read(True))
+
+    (r_value,g_value,b_value)=color_rgb_bytes_new(sensor.read(True))
+=======
     
     for i in range(utils_constants.N_RGB_MEASUREMENTS):
         [r_value,g_value,b_value]=[r_value,g_value,b_value]+color_rgb_bytes_new(sensor.read(True))
 
     (r_value,g_value,b_value)=(r_value,g_value,b_value)/utils_constants.N_RGB_MEASUREMENTS
+>>>>>>> 0ee518d6d1530c90ff1bddafa18ec7d4ab2834ef
 
+    #(r,g,b)=(r,g,b)/N_LIGHT_SAMPLES
+
+    #time.sleep(0.2)
     oled.fill(0)
 
     oled.text('r: {}'.format(r_value), 0, 32)
@@ -79,9 +89,13 @@ def measure():
     print(answer, end='\n')
     return((r_value,g_value,b_value))
     
-text_file = open(r"callibration","a")
-text_file.close()
 
+def callibrate():
+    import controller_motor as m
+    m.start(m.MOTOR_1)
+    time.sleep(10)
+    m.stop(m.MOTOR_1)
+    test()
 
 def test():
     result=[]
@@ -121,12 +135,6 @@ def test():
 
     test=measure()
     result.append(test)
-    
-    text_file = open(r"callibration","a")
-    text_file.writelines(result)
-    text_file.close()
-
-
     return(result)
 
 
@@ -143,4 +151,4 @@ def rave():
                 time.sleep(0.01)
                 j.off()
             i.off()
-
+            
