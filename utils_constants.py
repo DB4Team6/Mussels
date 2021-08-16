@@ -21,6 +21,7 @@ COOLER_PIN = 14
 ## RGB Sensor 
 SENSOR_INTEGRATION_TIME = 100   #value between 2.4 and 614.4.
 SENSOR_GAIN = 60    #must be a value of 1, 4, 16, 60
+N_RGB_MEASUREMENTS = 30
 
 ## RGB LED Pins
 R_PIN = 4
