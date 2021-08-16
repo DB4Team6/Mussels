@@ -4,7 +4,7 @@
 
 # Deprecated. Only using high power.
 STEPPER_MOTOR_LOW_POWER = 50
-STEPPER_MOTOR_PWM_FREQ = 300
+STEPPER_MOTOR_PWM_FREQ = 700
 STEPPER_MOTOR_CLOCK_DIR = 1
 
 ## Stepper Motor 1
@@ -20,15 +20,14 @@ COOLER_PIN = 14
 
 ## RGB Sensor 
 SENSOR_INTEGRATION_TIME = 100   #value between 2.4 and 614.4.
-SENSOR_GAIN = 16    #must be a value of 1, 4, 16, 60
+SENSOR_GAIN = 60    #must be a value of 1, 4, 16, 60
 
 ## RGB LED Pins
 R_PIN = 4
 
-G_PIN = 26
+G_PIN = 25
 
-B_PIN = 25
+B_PIN = 26
 
 ## Thermometer Pin
 TEMP_PIN = 32
-

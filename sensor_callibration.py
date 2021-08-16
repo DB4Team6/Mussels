@@ -102,7 +102,7 @@ def test():
         print(str(i) + " on")
         test=measure()
         result.append(test)
-        result.append(str(i) + " on")
+        #result.append(str(i) + " on")
         i.on()
         time.sleep(0.5)
 
@@ -116,7 +116,7 @@ def test():
         print(str(i) + "is off, others are on")
         test=measure()
         result.append(test)
-        result.append(str(i) + "off")
+        #result.append(str(i) + "off")
         i.off()
         time.sleep(0.5)
     r.off()
@@ -130,4 +130,17 @@ def test():
     return(result)
 
 
+def rave():
+    r.off()
+    g.off()
+    b.off()
+    while True:
+        for i in [r,g,b]:
+            i.on()
+            time.sleep(0.01)
+            for j in [r,g,b]:
+                j.on()
+                time.sleep(0.01)
+                j.off()
+            i.off()
             
