@@ -25,9 +25,9 @@ SENSOR_GAIN = 16    #must be a value of 1, 4, 16, 60
 ## RGB LED Pins
 R_PIN = 4
 
-G_PIN = 25
+G_PIN = 26
 
-B_PIN = 26
+B_PIN = 25
 
 ## Thermometer Pin
 TEMP_PIN = 32

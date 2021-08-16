@@ -28,8 +28,10 @@ _direction_pin = [
 # Set initial value of pins to avoid problems
 _direction_pin[0](0)
 _direction_pin[1](0)
-#_pin[0].value(0)
-#_pin[1].value(0)
+_pin[0].freq(0)
+_pin[1].freq(0)
+_pin[0].duty(0)
+_pin[1].duty(0)
 
 def _check(motor):
     if motor != 0 and motor != 1:

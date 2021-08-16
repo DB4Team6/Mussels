@@ -21,12 +21,13 @@ import _thread
 import time
 import controller_screen
 import controller_motor
+import sensor_callibration
 
 # Food quantity
 FOOD_QUANTITY = 80
 
 # Time between feeding sessions (in sec)
-TIME_BETWEEN_FEEDING_SESSIONS = 500
+TIME_BETWEEN_FEEDING_SESSIONS = 10
 
 # Motor used for food
 FOOD_MOTOR = controller_motor.MOTOR_1
@@ -48,6 +49,7 @@ concentration_hist = []
 time_feeding_hist = []
 
 def _compute_concentration():
+    sensor_callibration.measure()
     return 42
     # todo
 
@@ -59,13 +61,13 @@ def _perform_food_cycle():
                 accuratly determining the concentration.
             2. Measure concentration of algae.
             3. Compute a time T we want to run the pump for.
-            2. Displace water from the algae to the mussels for T seconds.
+            4. Displace water from the algae to the mussels for T seconds.
     """
     global feeding_time_hist, concentration_hist, time_feeding_hist
 
     # Setting the motor and starting for a few seconds
     # to get an accurate concentration
-    controller_motor.direction(FOOD_MOTOR, FOOD_MOTOR_DIRECTION)
+    controller_motor.set_direction(FOOD_MOTOR, FOOD_MOTOR_DIRECTION)
     controller_motor.start(FOOD_MOTOR) 
     time.sleep(MEASUREMENT_TIME)
     controller_motor.stop(FOOD_MOTOR)
@@ -96,7 +98,7 @@ def _perform_food_cycle():
 
 def _manager_food_runner():
     print("Started food manager thread!")
-    controller_screen.print_new_line("start foodM")
+    controller_screen.print_new_line("Start food!")
 
     while True:
         time.sleep(TIME_BETWEEN_FEEDING_SESSIONS)

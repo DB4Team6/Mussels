@@ -4,8 +4,6 @@ from machine import DAC
 from math import log
 import utils_constants as constants
 
-temp_sens = Pin(constants.TEMP_PIN, Pin.IN)
-
 import machine
 import utime
 
@@ -27,6 +25,8 @@ def init_temp_sensor(TENP_SENS_ADC_PIN_NO = constants.TEMP_PIN):
     adc.width(ADC.WIDTH_10BIT)
     return adc
 
+temp_sens = init_temp_sensor()
+
 def read_temp():
     raw_read = []
     # Collect NUM_SAMPLES
@@ -35,13 +35,13 @@ def read_temp():
 
     # Average of the NUM_SAMPLES and look it up in the table
     raw_average = sum(raw_read)/NUM_SAMPLES
-    print('Temp Utils: raw_avg = ' + str(raw_average))
-    print('Temp Utils: V_measured = ' + str(adc_V_lookup[round(raw_average)]))
+    # print('Temp Utils: raw_avg = ' + str(raw_average))
+    # print('Temp Utils: V_measured = ' + str(adc_V_lookup[round(raw_average)]))
 
     # Convert to resistance
     raw_average = ADC_MAX * adc_V_lookup[round(raw_average)]/ADC_Vmax
     resistance = (SER_RES * raw_average) / (ADC_MAX - raw_average)
-    print('Temp Utils: Thermistor resistance: {} ohms'.format(resistance))
+    # print('Temp Utils: Thermistor resistance: {} ohms'.format(resistance))
 
     # Convert to temperature
     steinhart  = log(resistance / NOM_RES) / THERM_B_COEFF
