@@ -17,3 +17,4 @@ def start():
 def stop():
   is_started = False
   _relay.value(0)
+

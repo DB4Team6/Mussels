@@ -20,6 +20,11 @@ r.on()
 g.on()
 b.on()
 
+# Define rgb sensor
+sensor = tcs34725.TCS34725(i2c)
+sensor.integration_time(utils_constants.SENSOR_INTEGRATION_TIME) #value between 2.4 and 614.4.
+sensor.gain(utils_constants.SENSOR_GAIN) #must be a value of 1, 4, 16, 60
+
 #set upthe 
 
 def color_rgb_bytes_new(color_raw):
@@ -41,7 +46,7 @@ def color_rgb_bytes_new(color_raw):
     if blue > 255:
         blue = 255
     #return (red, green, blue, int(r), int(g), int(b), int(clear))
-    return (int(r), int(g), int(b))
+    return [int(r), int(g), int(b)]
 
 # Define I2C
 i2c = I2C(scl=Pin(22), sda=Pin(23), freq=100000)
@@ -54,20 +59,14 @@ rate = 30
 oled = ssd1306.SSD1306_I2C(128, 64, i2c)
 oled.fill(0)
 
-# Define rgb sensor
-sensor = tcs34725.TCS34725(i2c)
-sensor.integration_time(utils_constants.SENSOR_INTEGRATION_TIME) #value between 2.4 and 614.4.
-sensor.gain(utils_constants.SENSOR_GAIN) #must be a value of 1, 4, 16, 60
-
-
 
 def measure():
     
 
     
     for i in range(utils_constants.N_RGB_MEASUREMENTS):
-        (r_value,g_value,b_value)+=color_rgb_bytes_new(sensor.read(True))
-        
+        [r_value,g_value,b_value]=[r_value,g_value,b_value]+color_rgb_bytes_new(sensor.read(True))
+
     (r_value,g_value,b_value)=(r_value,g_value,b_value)/utils_constants.N_RGB_MEASUREMENTS
 
     oled.fill(0)
