@@ -4,7 +4,7 @@
 
 # Deprecated. Only using high power.
 STEPPER_MOTOR_LOW_POWER = 50
-STEPPER_MOTOR_PWM_FREQ = 700
+STEPPER_MOTOR_PWM_FREQ = 400
 STEPPER_MOTOR_CLOCK_DIR = 1
 
 ## Stepper Motor 1
