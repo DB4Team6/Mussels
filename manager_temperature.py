@@ -9,6 +9,7 @@ import controller_screen
 import controller_motor
 import controller_cooling
 import utils_read_temp
+import utils_constants
 import time
 import utils_constants
 
@@ -18,8 +19,8 @@ TARGET_TEMP = 18
 # Motor we use
 TEMP_MOTOR = controller_motor.MOTOR_2
 
-temperature_histoy = []
-smooth_temperature_history = []
+# temperature_histoy = []
+# smooth_temperature_history = []
 
 # Time between temperature measurements
 TIME_BETWEEN_TEMP_MEASUREMENTS = 5
@@ -59,9 +60,15 @@ def _get_measurement_and_update_temp():
 
     last_error = error
 
-    # Update the history
-    temperature_histoy.append(temperature)
-    smooth_temperature_history.append(output)
+    # # Update the history
+    # temperature_histoy.append(temperature)
+    # smooth_temperature_history.append(output)
+
+    text_log = open("pid_history.txt",'a')
+    text_log.writelines(time.time())
+    text_log.writelines("PID Value: " + output)
+    text_log.writelines("Time: " + utils_constants.compute_time(time.time()))
+    text_log.close()
 
     # Log the measurement
     controller_screen.print_new_line("Check Temp:")

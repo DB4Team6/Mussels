@@ -52,9 +52,9 @@ BACK_TIME = 300  #!!!!!!!!!!!!
 # mussel tank.
 # MAXIMAL_PUMP_TIME = 100
 
-feeding_time_hist = []
-concentration_hist = []
-time_feeding_hist = []
+# feeding_time_hist = []
+# concentration_hist = []
+# time_feeding_hist = []
 
 def _compute_concentration():
     list_of_values=controller_sensor.measure()  
@@ -92,10 +92,10 @@ def _perform_food_cycle():
     print("Food Manager: Computed concentration of " + str(concentration))
     print("              and pumping time of " + str(concentration))
 
-    # Saving results to memory
-    feeding_time_hist.append(time.time())
-    concentration_hist.append(concentration)
-    time_feeding_hist.append(T)
+    # # Saving results to memory
+    # feeding_time_hist.append(time.time())
+    # concentration_hist.append(concentration)
+    # time_feeding_hist.append(T)
 
     
     controller_motor.start(FOOD_MOTOR)
