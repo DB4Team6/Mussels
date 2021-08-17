@@ -32,3 +32,9 @@ B_PIN = 26
 
 ## Thermometer Pin
 TEMP_PIN = 32
+
+def compute_time(t):
+    hours = int(t / 3600)
+    minutes = int((t - hours * 3600) / 60)
+    seconds = int((t - hours * 3600) % 60)
+    return str(hours) + ":" + str(minutes) + ":" + str(seconds)
