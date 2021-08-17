@@ -18,6 +18,9 @@ STEPPER_MOTOR_2_STEP_PIN_DIR = 33
 ## Cooler Pin 
 COOLER_PIN = 14
 
+#Temperature offset to account for experimental data
+TEMP_OFFSET = -3.5
+
 ## RGB Sensor 
 SENSOR_INTEGRATION_TIME = 100   #value between 2.4 and 614.4.
 SENSOR_GAIN = 60    #must be a value of 1, 4, 16, 60

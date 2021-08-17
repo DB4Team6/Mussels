@@ -23,7 +23,7 @@ import time
 import controller_screen
 import controller_motor
 import controller_sensor
-
+import utils_constants
 import math_model
 
 
@@ -114,11 +114,13 @@ def _perform_food_cycle():
 
     # Try to guess what this is doing :)
 
-    text_log = open("log",'a')
-    text_log.writelines(time.time())
-    text_log.writelines("concentration: " + concentration)
-    text_log.writelines("Calculated feeding time: " + T)
-    text_log.close()
+    feeding_history = open("feeding_history.txt",'a')
+    feeding_history.writelines(utils_constants.compute_time(time.time())
+    feeding_history.writelines("Concentration: " + concentration)
+    feeding_history.write.ines("Food amount" + FOOD_MOTOR)
+    feeding_history.writelines("Calculated feeding time: " + T)
+    feeding_history.writelines("------------------------------------------")
+    feeding_history.close()
 
 
     controller_screen.print_new_line("Feeding over!")
@@ -144,3 +146,7 @@ def start_thread():
         THIS SHOULD ONLY BE CALLED ONCE FROM THE BEGGINING OF THE MAIN FUNCTION.
     """
     _thread.start_new_thread(_manager_food_runner, ())
+
+
+
+

@@ -10,6 +10,7 @@ import controller_motor
 import controller_cooling
 import utils_read_temp
 import time
+import utils_constants
 
 # Temperature we want to get to
 TARGET_TEMP = 18
@@ -43,9 +44,9 @@ def _get_measurement_and_update_temp():
     global total_error, last_error
 
     # Measure the actual temperature
-    temperature = utils_read_temp.read_temp()
+    temperature = utils_read_temp.read_temp()+utils_constants.TEMP_OFFSET
 
-    # Compute PID thingy
+    # Compute PID actuator
     error = TARGET_TEMP - temperature
     # total_error += error * TIME_BETWEEN_TEMP_MEASUREMENTS
     total_error = sum(errors) 
@@ -84,7 +85,7 @@ def _manager_temperature_runner():
 
         if computed_temp > 1:
             # Start cooling
-            controller_motor.set_direction(TEMP_MOTOR, 1)
+            controller_motor.set_direction(TEMP_MOTOR, 0)
             controller_motor.start(TEMP_MOTOR)
             # if not is_cooling:
             controller_screen.print_new_line("Start cooling!")
@@ -99,7 +100,7 @@ def _manager_temperature_runner():
             print("Stopped cooling!")
             # is_cooling = False
             controller_cooling.stop()
-
+    temp_log=
         time.sleep(TIME_BETWEEN_TEMP_MEASUREMENTS)
 
 
