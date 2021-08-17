@@ -3,7 +3,7 @@
     thingy, ON ANOTHER THREAD.
 
     For this module, we consider:
-        1. The flow of the stepper motor is constant.
+        1. The speed of the stepper motor is constant.
             We expect it to be set and be called
             STEPPER_MOTOR_FLOW.
         2. The senzor gives in one meassurement the concentration
@@ -24,36 +24,50 @@ import controller_screen
 import controller_motor
 import controller_sensor
 
-# Food quantity
-FOOD_QUANTITY = 80
+import math_model
+
 
 # Time between feeding sessions (in sec)
-TIME_BETWEEN_FEEDING_SESSIONS = 720
+TIME_BETWEEN_FEEDING_SESSIONS = 720 #720 #!!!!!!!!!!!!!!!!!!!!!!
 
 # Motor used for food
 FOOD_MOTOR = controller_motor.MOTOR_1
 FOOD_MOTOR_DIRECTION = 0 
+INVERSE_DIRECTION = 1
 
 # Flow of water by the stepper motor tube when started 
-STEPPER_MOTOR_FLOW = 42 # 1.408 # ml/s
+STEPPER_MOTOR_FLOW = 1.408 # ml/s
 
 # Number of seconds we run the motor before
 # we measure the concentration
-MEASUREMENT_TIME = 3
+MEASUREMENT_TIME = 5
+
+# Remaining tube time
+TUBE_TIME = 1.6
+
+# Rest Time
+BACK_TIME = 300  #!!!!!!!!!!!!
 
 # maximal time we can run the pump for before hitting air in the
 # mussel tank.
-MAXIMAL_PUMP_TIME = 20
+# MAXIMAL_PUMP_TIME = 100
 
 feeding_time_hist = []
 concentration_hist = []
 time_feeding_hist = []
 
 def _compute_concentration():
-    controller_sensor.measure()  
-    
-    return 42
+    list_of_values=controller_sensor.measure()  
+
+    RGB_sum=sum(list_of_values)
+
+    concentration = - 44.39278 * RGB_sum + 747477.69782
+
+    return concentration #cells/ml
     # todo
+
+# Food quantity
+FOOD_QUANTITY = math_model.feed_amount(_compute_concentration())
 
 def _perform_food_cycle():
     
@@ -69,7 +83,7 @@ def _perform_food_cycle():
 
     # Measuring the concentration and computing time to pump
     concentration = _compute_concentration()
-    T = FOOD_QUANTITY / (concentration * STEPPER_MOTOR_FLOW) 
+    T = FOOD_QUANTITY / STEPPER_MOTOR_FLOW
 
     # Logging stuff to stdout / OLED screen
     controller_screen.print_new_line("Feeding time:")
@@ -83,10 +97,20 @@ def _perform_food_cycle():
     concentration_hist.append(concentration)
     time_feeding_hist.append(T)
 
+    
+    controller_motor.start(FOOD_MOTOR)
+    time.sleep(TUBE_TIME)
+    controller_motor.stop(FOOD_MOTOR)
+
+    time.sleep(1)
+
     # Actually pumping stuff over
     controller_motor.start(FOOD_MOTOR)
     time.sleep(T)
     controller_motor.stop(FOOD_MOTOR)
+
+    
+    
 
     # Try to guess what this is doing :)
 
@@ -98,6 +122,14 @@ def _perform_food_cycle():
 
 
     controller_screen.print_new_line("Feeding over!")
+
+    time.sleep(BACK_TIME)
+    controller_screen.print_new_line("RUN IT BACK!")
+    controller_motor.set_direction(FOOD_MOTOR, INVERSE_DIRECTION)
+    controller_motor.start(FOOD_MOTOR)
+    time.sleep(T + TUBE_TIME + MEASUREMENT_TIME)
+    controller_motor.stop(FOOD_MOTOR)
+
 
 def _manager_food_runner():
     print("Started food manager thread!")
