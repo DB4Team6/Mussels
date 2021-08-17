@@ -7,6 +7,7 @@ from machine import I2C, Pin, PWM
 import controller_screen
 import utils_constants
 import controller_motor
+import controller_sensor as cs
 
 #defining the RGB LED pins. The given LED colour is on when the pin is off()
 
@@ -59,37 +60,6 @@ rate = 30
 oled = ssd1306.SSD1306_I2C(128, 64, i2c)
 oled.fill(0)
 
-
-def measure():
-    
-
-    
-    for i in range(utils_constants.N_RGB_MEASUREMENTS):
-        [r_value,g_value,b_value]=[r_value,g_value,b_value]+color_rgb_bytes_new(sensor.read(True))
-
-    (r_value,g_value,b_value)=(r_value,g_value,b_value)/utils_constants.N_RGB_MEASUREMENTS
-
-    #(r,g,b)=(r,g,b)/N_LIGHT_SAMPLES
-
-    #time.sleep(0.2)
-    oled.fill(0)
-
-    oled.text('r: {}'.format(r_value), 0, 32)
-    oled.text('g: {}'.format(g_value), 0, 40)
-    oled.text('b: {}'.format(b_value), 0, 48)
-    oled.show()
-    answer = 'r:{} g:{} b:{}<'.format(r_value,g_value,b_value)
-    print(answer, end='\n')
-    return((r_value,g_value,b_value))
-    
-
-def callibrate():
-    import controller_motor as m
-    m.start(m.MOTOR_1)
-    time.sleep(10)
-    m.stop(m.MOTOR_1)
-    test()
-
 def test():
     result=[]
     #turn all lights off
@@ -101,7 +71,7 @@ def test():
         i.off()
         time.sleep(1)
         print(str(i) + " on")
-        test=measure()
+        test=cs.measure()
         result.append(test)
         #result.append(str(i) + " on")
         i.on()
@@ -115,7 +85,7 @@ def test():
         i.on()
         time.sleep(1)
         print(str(i) + "is off, others are on")
-        test=measure()
+        test=cs.measure()
         result.append(test)
         #result.append(str(i) + "off")
         i.off()
@@ -126,8 +96,28 @@ def test():
     time.sleep(1)
     print("all on")
 
-    test=measure()
+    test=cs.measure()
     result.append(test)
     return(result)
 
-            
+
+def measure():
+    values_list = [0,0,0]
+
+    for i in range(utils_constants.N_RGB_MEASUREMENTS):
+        temp=color_rgb_bytes_new(sensor.read(True))
+        for j in range(3):
+            values_list[j]=values_list[j]+temp[j]
+
+    for k in range(3):
+            values_list[k]=int(values_list[k]/utils_constants.N_RGB_MEASUREMENTS)
+
+    #(r_value,g_value,b_value)=(r_value,g_value,b_value)/utils_constants.N_RGB_MEASUREMENTS
+
+    # answer = 'r:{} g:{} b:{}<'.format(r_value,g_value,b_value)
+    # controller_screen.print_new_line("sensor measurement:")
+    # controller_screen.print_new_line(answer)
+    # controller_screen.print_new_line("\n")
+    print(" R: G:  B: ")
+    print(values_list, end='\n')
+    return values_list

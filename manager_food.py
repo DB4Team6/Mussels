@@ -49,20 +49,18 @@ concentration_hist = []
 time_feeding_hist = []
 
 def _compute_concentration():
-    sensor_callibration.measure()
+    sensor_callibration.measure()  
+    
+
+
     return 42
     # todo
 
 def _perform_food_cycle():
-    """
-        Feed the mussels a quantity of algae.
-        Process:
-            1. Pump water for MEASUREMENT_TIME seconds, to be able to
-                accuratly determining the concentration.
-            2. Measure concentration of algae.
-            3. Compute a time T we want to run the pump for.
-            4. Displace water from the algae to the mussels for T seconds.
-    """
+    
+    
+
+
     global feeding_time_hist, concentration_hist, time_feeding_hist
 
     # Setting the motor and starting for a few seconds
