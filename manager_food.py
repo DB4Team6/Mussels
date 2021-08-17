@@ -10,31 +10,32 @@
             of algae in the water.
         3. If we want to feed the mussels a quantity Q of algae, we have to pump water for T seconds, where
             Concentration * STEPPER_MOTOR_FLOW * T = Q
+        4. Pump water back to the algae tank for T seconds 
 
     NOTE:
         1. The flow of the stepper motor is constant.
-        2. There should be a syphone between the two tanks, as we
-            only pump water in one direction.
+        2. The water that is pumped from the algae tank to the mussles
+            will be pumped back to the algae after a constant number of seconds
 """
 
 import _thread
 import time
 import controller_screen
 import controller_motor
-import sensor_callibration
+import controller_sensor
 
 # Food quantity
 FOOD_QUANTITY = 80
 
 # Time between feeding sessions (in sec)
-TIME_BETWEEN_FEEDING_SESSIONS = 780 
+TIME_BETWEEN_FEEDING_SESSIONS = 720
 
 # Motor used for food
 FOOD_MOTOR = controller_motor.MOTOR_1
 FOOD_MOTOR_DIRECTION = 0 
 
 # Flow of water by the stepper motor tube when started 
-STEPPER_MOTOR_FLOW = 1.408 # ml/s
+STEPPER_MOTOR_FLOW = 42 # 1.408 # ml/s
 
 # Number of seconds we run the motor before
 # we measure the concentration
@@ -49,18 +50,14 @@ concentration_hist = []
 time_feeding_hist = []
 
 def _compute_concentration():
-    sensor_callibration.measure()  
+    controller_sensor.measure()  
     
-
-
     return 42
     # todo
 
 def _perform_food_cycle():
     
     
-
-
     global feeding_time_hist, concentration_hist, time_feeding_hist
 
     # Setting the motor and starting for a few seconds

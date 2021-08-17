@@ -12,9 +12,9 @@ is_started = False
 
 def start():
   is_started = True
-  _relay.value(1)
+  _relay.value(0)
 
 def stop():
   is_started = False
-  _relay.value(0)
+  _relay.value(1)
 
