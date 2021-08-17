@@ -84,7 +84,7 @@ def _manager_temperature_runner():
 
         if computed_temp > 1:
             # Start cooling
-            controller_motor.set_direction(TEMP_MOTOR, 0)
+            controller_motor.set_direction(TEMP_MOTOR, 1)
             controller_motor.start(TEMP_MOTOR)
             # if not is_cooling:
             controller_screen.print_new_line("Start cooling!")
