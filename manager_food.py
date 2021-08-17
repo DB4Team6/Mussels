@@ -89,6 +89,14 @@ def _perform_food_cycle():
     controller_motor.stop(FOOD_MOTOR)
 
     # Try to guess what this is doing :)
+
+    text_log = open("log",'a')
+    text_log.writelines(time.time())
+    text_log.writelines("concentration: " + concentration)
+    text_log.writelines("Calculated feeding time: " + T)
+    text_log.close()
+
+
     controller_screen.print_new_line("Feeding over!")
 
 def _manager_food_runner():
