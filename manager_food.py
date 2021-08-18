@@ -83,7 +83,7 @@ def _perform_food_cycle():
 
     # Measuring the concentration and computing time to pump
     concentration = _compute_concentration()
-    T = FOOD_QUANTITY / STEPPER_MOTOR_FLOW
+    T = concentration / STEPPER_MOTOR_FLOW
 
     # Logging stuff to stdout / OLED screen
     controller_screen.print_new_line("Feeding time:")
@@ -115,11 +115,11 @@ def _perform_food_cycle():
     # Try to guess what this is doing :)
 
     feeding_history = open("feeding_history.txt",'a')
-    feeding_history.writelines(utils_constants.compute_time(time.time())
-    feeding_history.writelines("Concentration: " + concentration)
-    feeding_history.write.ines("Food amount" + FOOD_MOTOR)
-    feeding_history.writelines("Calculated feeding time: " + T)
-    feeding_history.writelines("------------------------------------------")
+    feeding_history.write(str(utils_constants.compute_time(time.time()))+'\n')
+    feeding_history.write("Concentration: " + str(concentration)+'\n')
+    feeding_history.write("Food amount" + str(FOOD_QUANTITY)+'\n')
+    feeding_history.write("Calculated feeding time: " + str(T)+'\n')
+    feeding_history.write("------------------------------------------ \n")
     feeding_history.close()
 
 

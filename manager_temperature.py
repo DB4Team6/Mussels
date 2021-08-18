@@ -65,9 +65,10 @@ def _get_measurement_and_update_temp():
     # smooth_temperature_history.append(output)
 
     text_log = open("pid_history.txt",'a')
-    text_log.writelines(time.time())
-    text_log.writelines("PID Value: " + output)
-    text_log.writelines("Time: " + utils_constants.compute_time(time.time()))
+    text_log.write("Time: " + str(utils_constants.compute_time(time.time()))+'\n')
+    text_log.write('Temp:'+str(temperature))
+    text_log.write("PID Value: " + str(output)+'\n')
+   
     text_log.close()
 
     # Log the measurement
@@ -107,7 +108,7 @@ def _manager_temperature_runner():
             print("Stopped cooling!")
             # is_cooling = False
             controller_cooling.stop()
-    temp_log=
+    
         time.sleep(TIME_BETWEEN_TEMP_MEASUREMENTS)
 
 
