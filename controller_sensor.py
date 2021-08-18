@@ -53,6 +53,4 @@ def measure():
 
     controller_screen.print_new_line(" ")
 
-    print(" R: G:  B: ")
-    print(values_list, end='\n')
     return values_list

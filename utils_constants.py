@@ -41,3 +41,4 @@ def compute_time(t):
     minutes = int((t - hours * 3600) / 60)
     seconds = int((t - hours * 3600) % 60)
     return str(hours) + ":" + str(minutes) + ":" + str(seconds)
+
