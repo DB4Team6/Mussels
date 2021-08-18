@@ -83,7 +83,7 @@ def _perform_food_cycle():
 
     # Measuring the concentration and computing time to pump
     concentration = _compute_concentration()
-    T = concentration / STEPPER_MOTOR_FLOW
+    T = math_model.feed_amount(concentration) / STEPPER_MOTOR_FLOW
 
     # Logging stuff to stdout / OLED screen
     controller_screen.print_new_line("Feeding time:")
