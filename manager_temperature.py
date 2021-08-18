@@ -35,6 +35,11 @@ total_error = 0
 last_error = 0
 errors = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
+#initialize txt log
+text_log = open("pid_history.txt",'a')
+text_log.write("Time, Temperature, Error, PID value \n')
+text_log.close()
+
 #take a measurement
 def _get_measurement_and_update_temp():
     """
@@ -65,10 +70,10 @@ def _get_measurement_and_update_temp():
     # smooth_temperature_history.append(output)
 
     text_log = open("pid_history.txt",'a')
-    text_log.write("Time: " + str(utils_constants.compute_time(time.time()))+'\n')
-    text_log.write('Temp:'+str(temperature))
-    text_log.write("PID Value: " + str(output)+'\n')
-   
+    text_log.write(str(utils_constants.compute_time(time.time()))+","+
+                   str(temperature) + "," +
+                   error + "," +
+                   output + '\n')
     text_log.close()
 
     # Log the measurement

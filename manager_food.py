@@ -69,6 +69,12 @@ def _compute_concentration():
 # Food quantity
 FOOD_QUANTITY = math_model.feed_amount(_compute_concentration())
 
+#initialize txt log
+feeding_history = open("feeding_history.txt",'a')
+feeding_history.write("Time, Concentration, Food quantity (ml), Feeding time")
+feeding_history.close()
+
+
 def _perform_food_cycle():
     
     
@@ -115,12 +121,12 @@ def _perform_food_cycle():
     # Try to guess what this is doing :)
 
     feeding_history = open("feeding_history.txt",'a')
-    feeding_history.write(str(utils_constants.compute_time(time.time()))+'\n')
-    feeding_history.write("Concentration: " + str(concentration)+'\n')
-    feeding_history.write("Food amount" + str(FOOD_QUANTITY)+'\n')
-    feeding_history.write("Calculated feeding time: " + str(T)+'\n')
-    feeding_history.write("------------------------------------------ \n")
+    feeding_history.write(str(utils_constants.compute_time(time.time()))+','+
+                          str(concentration)+',' +
+                          str(FOOD_QUANTITY)+',' +
+                          str(T)+'\n')
     feeding_history.close()
+
 
 
     controller_screen.print_new_line("Feeding over!")
