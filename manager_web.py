@@ -117,8 +117,11 @@ def _wifi_server_runner():
             client.disconnect()
             sys.exit()
 
-def publish_val(name,value):
-    client.publish(name,str(value)
+# def publish_val(name,value):
+#     import manager_web
+#     manager_web.client.publish(name,str(value))
+ 
+
 
 
 

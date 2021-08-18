@@ -11,7 +11,7 @@ import utils_read_temp
 import utils_constants
 import time
 import utils_constants
-import manager_web ##EMMA can we do this?
+#import manager_web ##EMMA can we do this?
 
 # Temperature we want to get to
 TARGET_TEMP = 18
@@ -70,20 +70,17 @@ def _get_measurement_and_update_temp():
     # smooth_temperature_history.append(output)
 
     text_log = open("pid_history.txt",'a')
-    text_log.write(str(utils_constants.compute_time(time.time()))+","+
-                   str(temperature) + "," +
-                   error + "," +
-                   output + '\n')
+    #text_log.write(str(utils_constants.compute_time(time.time()))+","+ str(int(temperature)) + "," + int(error) + ","  + '\n')
     text_log.close()
 
-    manager_web.publish_val("Temperature",temperature)
+    #manager_web.publish_val("Temperature",temperature)
 
     # Log the measurement
     controller_screen.print_new_line("Check Temp:")
-    controller_screen.print_new_line(" Seen: " + str(temperature))
-    controller_screen.print_new_line(" Comp: " + str(output))
-    print("Temperature Manager: read temperature of " + str(temperature))
-    print("                     PID output is " + str(output))
+    controller_screen.print_new_line(" Seen: " + str(int(temperature)))
+    controller_screen.print_new_line(" Comp: " + str(int(output)))
+    print("Temperature Manager: read temperature of " + str(int(temperature)))
+    print("                     PID output is " + str(int(output)))
 
     # Return the computed temperature
     return output

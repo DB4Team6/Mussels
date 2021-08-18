@@ -144,8 +144,9 @@ def _manager_food_runner():
     controller_screen.print_new_line("Start food!")
 
     while True:
-        time.sleep(TIME_BETWEEN_FEEDING_SESSIONS)
         _perform_food_cycle()
+        time.sleep(TIME_BETWEEN_FEEDING_SESSIONS-BACK_TIME-TUBE_TIME-MEASUREMENT_TIME)
+        
         
 def start_thread():
     """
