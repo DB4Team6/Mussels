@@ -46,6 +46,4 @@ def measure():
     # answer = 'r:{}\n g:{}\n b:{}\n '.format(values_list[0], values_list[1], values_list[2])
 
 
-    print(" R: G:  B: ")
-    print(values_list, end='\n')
     return values_list
