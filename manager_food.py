@@ -40,10 +40,10 @@ STEPPER_MOTOR_FLOW = 1.408 # ml/s
 
 # Number of seconds we run the motor before
 # we measure the concentration
-MEASUREMENT_TIME = 5
+MEASUREMENT_TIME = 3.7
 
 # Remaining tube time
-TUBE_TIME = 1.6
+TUBE_TIME = 2.2
 
 # Rest Time
 BACK_TIME = 300  #!!!!!!!!!!!!
@@ -153,7 +153,6 @@ def start_thread():
         THIS SHOULD ONLY BE CALLED ONCE FROM THE BEGGINING OF THE MAIN FUNCTION.
     """
     _thread.start_new_thread(_manager_food_runner, ())
-
 
 
 
