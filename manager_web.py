@@ -33,10 +33,9 @@ import _thread
 
 def _wifi_server_runner():
     print("Wifi thread started!")
-
     # WiFi connection information
-    WIFI_SSID = 'Marias iPhone'
-    WIFI_PASSWORD = 'hannabortin'
+    WIFI_SSID = 'iPhone'
+    WIFI_PASSWORD = 'abcd1234'
 
     # turn off the WiFi Access Point
     ap_if = network.WLAN(network.AP_IF)
@@ -70,14 +69,18 @@ def _wifi_server_runner():
     #         (about 1/4 of the micropython heap on the ESP8266 platform)
     ADAFRUIT_IO_URL = b'io.adafruit.com' 
     ADAFRUIT_USERNAME = b'hannabortin'
-    ADAFRUIT_IO_KEY = b'aio_Bivw89BD2YpCdJm1id8Vnr6fh3RF'
-    ADAFRUIT_IO_FEEDNAME = b'test'
+    ADAFRUIT_IO_KEY = b'aio_laPN32j18AhaXMiI1Wiqt7dj5sAe'
+    #ADAFRUIT_IO_FEEDNAME = b'TempData'
+    ADAFRUIT_IO_FEEDNAME = b'Temperature'
+
+    #temp_feed = "hannabortin/feeds/temperature"
 
     client = MQTTClient(client_id=mqtt_client_id, 
                         server=ADAFRUIT_IO_URL, 
                         user=ADAFRUIT_USERNAME, 
                         password=ADAFRUIT_IO_KEY,
                         ssl=False)
+                    
     try:            
         client.connect()
     except Exception as e:
@@ -89,20 +92,34 @@ def _wifi_server_runner():
     # format of feed name:  
     #   "ADAFRUIT_USERNAME/feeds/ADAFRUIT_IO_FEEDNAME"
     mqtt_feedname = bytes('{:s}/feeds/{:s}'.format(ADAFRUIT_USERNAME, ADAFRUIT_IO_FEEDNAME), 'utf-8')
+    temp_feed = "hannabortin/feeds/temperature"
+
+    #client.set_callback(cb)
+    #client.subscribe(temp_feed)
+
     PUBLISH_PERIOD_IN_SEC = 10 
 
-    val = 0
+    val=0
     while True:
         val = val + 1
         try:
+            free_heap_in_bytes = gc.mem_free()
             client.publish(mqtt_feedname,    
-                    bytes(str(val), 'utf-8'), 
-                    qos=0)  
+                    bytes(str(free_heap_in_bytes), 'utf-8'), 
+                    qos=0)
+
+            client.check_msg()
+            #c lient.publish(topic=Temperature, msg = 3)
+
             time.sleep(PUBLISH_PERIOD_IN_SEC)
         except KeyboardInterrupt:
             print('Ctrl-C pressed...exiting')
             client.disconnect()
             sys.exit()
+
+def publish_val(name,value):
+    client.publish(name,str(value)
+
 
 
 def start_thread():

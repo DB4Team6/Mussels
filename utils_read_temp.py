@@ -47,4 +47,4 @@ def read_temp():
     steinhart  = log(resistance / NOM_RES) / THERM_B_COEFF
     steinhart += 1.0 / (TEMP_NOM + 273.15)
     steinhart  = (1.0 / steinhart) - 273.15
-    return steinhart
+    return steinhart+constants.TEMP_OFFSET

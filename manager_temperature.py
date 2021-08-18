@@ -1,7 +1,6 @@
 """
     This module knows how to handle temperature in the
     thingy, ON ANOTHER THREAD.
-
 """
 
 import _thread
@@ -12,6 +11,7 @@ import utils_read_temp
 import utils_constants
 import time
 import utils_constants
+import manager_web ##EMMA can we do this?
 
 # Temperature we want to get to
 TARGET_TEMP = 18
@@ -37,7 +37,7 @@ errors = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
 #initialize txt log
 text_log = open("pid_history.txt",'a')
-text_log.write("Time, Temperature, Error, PID value \n')
+text_log.write("Time, Temperature, Error, PID value \n")
 text_log.close()
 
 #take a measurement
@@ -50,7 +50,7 @@ def _get_measurement_and_update_temp():
     global total_error, last_error
 
     # Measure the actual temperature
-    temperature = utils_read_temp.read_temp()+utils_constants.TEMP_OFFSET
+    temperature = utils_read_temp.read_temp()
 
     # Compute PID actuator
     error = TARGET_TEMP - temperature
@@ -75,6 +75,8 @@ def _get_measurement_and_update_temp():
                    error + "," +
                    output + '\n')
     text_log.close()
+
+    manager_web.publish_val("Temperature",temperature)
 
     # Log the measurement
     controller_screen.print_new_line("Check Temp:")
