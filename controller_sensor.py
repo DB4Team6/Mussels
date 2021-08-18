@@ -45,13 +45,6 @@ def measure():
 
     # answer = 'r:{}\n g:{}\n b:{}\n '.format(values_list[0], values_list[1], values_list[2])
 
-    controller_screen.print_new_line("RGB results:")
-
-    controller_screen.print_new_line("R:" + str(values_list[0]))
-    controller_screen.print_new_line("G:" + str(values_list[1]))
-    controller_screen.print_new_line("B:" + str(values_list[2]))
-
-    controller_screen.print_new_line(" ")
 
     print(" R: G:  B: ")
     print(values_list, end='\n')
