@@ -57,9 +57,17 @@ BACK_TIME = 300  #!!!!!!!!!!!!
 # time_feeding_hist = []
 
 def _compute_concentration():
-    list_of_values=controller_sensor.measure()  
+    list_of_values = controller_sensor.measure()  
 
-    RGB_sum=sum(list_of_values)
+    RGB_sum = sum(list_of_values)
+
+    controller_screen.print_new_line("RGB results:")
+
+    controller_screen.print_new_line("R:" + str(list_of_values[0]))
+    controller_screen.print_new_line("G:" + str(list_of_values[1]))
+    controller_screen.print_new_line("B:" + str(list_of_values[2]))
+
+    controller_screen.print_new_line(" ")
 
     concentration = - 44.39278 * RGB_sum + 747477.69782
 
@@ -67,11 +75,11 @@ def _compute_concentration():
     # todo
 
 # Food quantity
-FOOD_QUANTITY = math_model.feed_amount(_compute_concentration())
+# FOOD_QUANTITY = math_model.feed_amount(_compute_concentration())
 
 #initialize txt log
 feeding_history = open("feeding_history.txt",'a')
-feeding_history.write("Time, Concentration, Food quantity (ml), Feeding time")
+feeding_history.write("Time, Concentration, Food quantity-ml, Feeding time")
 feeding_history.close()
 
 
@@ -123,7 +131,7 @@ def _perform_food_cycle():
     feeding_history = open("feeding_history.txt",'a')
     feeding_history.write(str(utils_constants.compute_time(time.time()))+','+
                           str(concentration)+',' +
-                          str(FOOD_QUANTITY)+',' +
+                          str(math_model.feed_amount(concentration))+',' +
                           str(T)+'\n')
     feeding_history.close()
 

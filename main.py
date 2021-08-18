@@ -4,7 +4,7 @@ import time
 # Managers
 import manager_food
 import manager_temperature
-#import manager_web
+import manager_web
 
 # Controllers
 import controller_screen
@@ -18,7 +18,7 @@ def main():
     # starting threads
     manager_food.start_thread()
     manager_temperature.start_thread()
-    #manager_web.start_thread()
+    manager_web.start_thread()
 
     # wait for eternity
     time.sleep(1e9)

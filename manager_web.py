@@ -42,7 +42,7 @@ def _wifi_server_runner():
     ap_if.active(False)
 
     # connect the device to the WiFi network
-    wifi = network.WLAN(network.STA_IF)
+    wifi = network.WLAN(network.STA_IF) 
     wifi.active(True)
     wifi.connect(WIFI_SSID, WIFI_PASSWORD)
 
@@ -69,7 +69,7 @@ def _wifi_server_runner():
     #         (about 1/4 of the micropython heap on the ESP8266 platform)
     ADAFRUIT_IO_URL = b'io.adafruit.com' 
     ADAFRUIT_USERNAME = b'hannabortin'
-    ADAFRUIT_IO_KEY = b'aio_laPN32j18AhaXMiI1Wiqt7dj5sAe'
+    ADAFRUIT_IO_KEY = b'aio_csKi89lzPge02AaSJt81gIrHfJUI'
     #ADAFRUIT_IO_FEEDNAME = b'TempData'
     ADAFRUIT_IO_FEEDNAME = b'Temperature'
 
